@@ -95,3 +95,57 @@ Create a file in the root of your project:
 
 ```bash
 nixpacks.toml
+```
+## Deployment on Railway
+
+Follow these steps to deploy your Laravel API on Railway.
+
+---
+
+### Step 1: Configure Nixpacks (PHP 8.4)
+
+Create a file in the root of your project:
+
+```bash
+nixpacks.toml
+```
+### Add the following configuration:
+
+```[phases.setup]
+nixPkgs = ["php84", "php84Packages.composer"]
+
+[phases.build]
+cmds = [
+  "composer install --no-dev --optimize-autoloader",
+  "php artisan key:generate",
+  "php artisan migrate --force"
+]
+
+[start]
+cmd = "php artisan serve --host 0.0.0.0 --port $PORT"
+```
+### Step 2: Environment Variables
+
+- In the Railway dashboard -> projects -> Variables tab, add:
+
+```APP_ENV=production
+APP_DEBUG=false
+APP_KEY=base64:your_app_key
+
+DB_CONNECTION=mysql
+DB_HOST=your_db_host
+DB_PORT=3306
+DB_DATABASE=your_db_name
+DB_USERNAME=your_db_user
+DB_PASSWORD=your_db_password
+NIXPACKS_PHP_VERSION=8.4
+```
+- You can add a MySQL plugin in Railway and copy the credentials.
+
+### Step 3: Deploy
+- Go to Railway dashboard
+- Click New Project
+- Select Deploy from GitHub Repo
+- Choose your repository
+
+- Railway will automatically build and deploy your application.
