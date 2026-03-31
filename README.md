@@ -72,3 +72,26 @@ Accept: application/json
 * **Uniqueness:** A task `title` must be unique for a specific `due_date`.
 * **Dates:** `due_date` must be today or in the future.
 * **Transitions:** You cannot skip statuses (e.g., cannot go from `pending` straight to `done`).
+
+## Deployment on Railway
+
+This project can be deployed بسهولة on Railway using Nixpacks.
+
+---
+
+### Prerequisites
+
+- GitHub account
+- Railway account (https://railway.app)
+- Laravel project pushed to GitHub
+
+---
+
+### Step 1: Add Nixpacks Configuration
+
+Railway uses PHP 8.3 by default, but this project requires **PHP 8.4+**.
+
+Create a file in the root of your project:
+
+```bash
+nixpacks.toml
